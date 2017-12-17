@@ -4,6 +4,9 @@ block content
     h1.page-header #{title}
     p
         h4 Please register using the form below
+        if errors
+            each error, i in errors
+                div.alert.alert-danger #{error.msg}
     form(method='post', action='/users/register', enctype='multipart/form-data')
         .form-group
             label Name
@@ -16,10 +19,10 @@ block content
             input.form-control(name='username', type='text', placeholder='Enter Username')
         .form-group
             label Password
-            input.form-control(name='password', type='text', placeholder='Enter Password')
+            input.form-control(name='password', type='password', placeholder='Enter Password')
         .form-group
             label Confirm Password
-            input.form-control(name='password2', type='text', placeholder='Confirm Password')
+            input.form-control(name='password2', type='password', placeholder='Confirm Password')
 
         .form-group
             label Profile Image

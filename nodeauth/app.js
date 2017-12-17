@@ -12,9 +12,14 @@ var multer = require('multer');
 var upload = multer({dest: './uploads'});
 var flash = require('connect-flash');
 var bcrypt = require('bcryptjs');
+
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
+
+
+
+
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -43,31 +48,41 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Validator
-app.use(expressValidator({
-    errorFormatter: function(param, msg, value) {
-        var namespace = param.split('.')
-            , root    = namespace.shift()
-            , formParam = root;
-
-        while(namespace.length) {
-            formParam += '[' + namespace.shift() + ']';
-        }
-        return {
-            param : formParam,
-            msg   : msg,
-            value : value
-        };
-    }
-}));
+app.use(expressValidator(
+//     {
+//     errorFormatter: function(param, msg, value) {
+//         var namespace = param.split('.')
+//             , root    = namespace.shift()
+//             , formParam = root;
+//
+//         while(namespace.length) {
+//             formParam += '[' + namespace.shift() + ']';
+//         }
+//         return {
+//             param : formParam,
+//             msg   : msg,
+//             value : value
+//         };
+//     }
+// }
+));
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(flash());
+app.use(flash()); //이거 짱인게 쓰고싶은곳에서 그냥 req.flsh 이러고 쓰면 됨
 app.use(function (req, res, next) {
     res.locals.messages = require('express-messages')(req, res);
     next();
 });
+
+
+app.get('*', function(req, res, next){ //어떤 페이지든지 다 반응함
+    res.locals.user=req.user || null;
+    next();
+});
+
+
 
 app.get('*', function(req, res, next){
     res.locals.user = req.user || null;
