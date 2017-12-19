@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
-var jwt = require('jsonwebtoken');
 
 mongoose.connect('mongodb://localhost/nodeauth');
 
