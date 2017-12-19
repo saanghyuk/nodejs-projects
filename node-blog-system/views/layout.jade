@@ -4,7 +4,7 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    .conatiner
+    .container
       img.logo(src='/images/nodebloglogo.png')
       nav
         ul
@@ -14,9 +14,7 @@ html
             a(href='/posts/add') Add Post
           li
             a(href='/categories/add') Add Category
-
-
-    != messages()
-    block content
-    footer
-      p NodeBlog &copy; 2016
+      != messages()
+      block content
+      footer
+        p NodeBlog &copy; 2016
