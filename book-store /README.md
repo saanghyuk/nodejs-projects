@@ -1,4 +1,0 @@
- BookStore 
-===========
-
-Simple Book Store
